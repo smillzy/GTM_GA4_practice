@@ -2,9 +2,13 @@ import requests
 import uuid
 import random
 import time
+import os
+from dotenv import load_dotenv
 
-MEASUREMENT_ID = "G-8BB44LWN0M"
-API_SECRET = "WD7qW4l3QJ6Wg3C5SoTu1g"
+load_dotenv()
+
+MEASUREMENT_ID = os.getenv("GA4_MEASUREMENT_ID")
+API_SECRET = os.getenv("GA4_API_SECRET")
 URL = f"https://www.google-analytics.com/mp/collect?measurement_id={MEASUREMENT_ID}&api_secret={API_SECRET}"
 
 # UTM 流量來源設定
