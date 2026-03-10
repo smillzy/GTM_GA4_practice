@@ -33,13 +33,13 @@ def pick_utm():
 def pick_product():
     return random.choice(PRODUCTS)
 
-def send_event(client_id, event_name, params):
+def send_event(client_id, session_id, event_name, params):
     payload = {
         "client_id": client_id,
         "events": [{
             "name": event_name,
             "params": {
-                "session_id": str(random.randint(1000000, 9999999)),
+                "session_id": session_id,
                 "engagement_time_msec": str(random.randint(1000, 8000)),
                 **params
             }
@@ -49,6 +49,7 @@ def send_event(client_id, event_name, params):
 
 def simulate_user(user_num):
     client_id = str(uuid.uuid4())
+    session_id = str(random.randint(1000000, 9999999))
     utm = pick_utm()
     product = pick_product()
 
@@ -68,14 +69,14 @@ def simulate_user(user_num):
     }
 
     # 1. 所有人瀏覽首頁
-    send_event(client_id, "page_view", {
+    send_event(client_id, session_id, "page_view", {
         "page_location": utm_url,
         "page_title": "Pintoo 拼圖商店",
     })
 
     # 2. 70% 查看商品
     if random.random() < 0.70:
-        send_event(client_id, "view_item", {
+        send_event(client_id, session_id, "view_item", {
             "page_location": utm_url,
             "currency": "TWD",
             "value": product["price"],
@@ -84,7 +85,7 @@ def simulate_user(user_num):
 
         # 3. 45% 加入購物車
         if random.random() < 0.45:
-            send_event(client_id, "add_to_cart", {
+            send_event(client_id, session_id, "add_to_cart", {
                 "page_location": utm_url,
                 "currency": "TWD",
                 "value": product["price"],
@@ -93,7 +94,7 @@ def simulate_user(user_num):
 
             # 4. 55% 進入結帳
             if random.random() < 0.55:
-                send_event(client_id, "begin_checkout", {
+                send_event(client_id, session_id, "begin_checkout", {
                     "page_location": utm_url,
                     "currency": "TWD",
                     "value": product["price"],
@@ -102,7 +103,7 @@ def simulate_user(user_num):
 
                 # 5. 70% 完成購買
                 if random.random() < 0.70:
-                    send_event(client_id, "purchase", {
+                    send_event(client_id, session_id, "purchase", {
                         "page_location": utm_url,
                         "transaction_id": "TXN-" + str(random.randint(100000, 999999)),
                         "currency": "TWD",
