@@ -52,11 +52,13 @@ def simulate_user(user_num):
     utm = pick_utm()
     product = pick_product()
 
-    utm_params = {
-        "source": utm["utm_source"],
-        "medium": utm["utm_medium"],
-        "campaign": utm["utm_campaign"],
-    }
+    # UTM 放進網址，GA4 才能識別為流量來源
+    base_url = "https://smillzy.github.io/GTM_GA4_practice/"
+    utm_url = (
+        f"{base_url}?utm_source={utm['utm_source']}"
+        f"&utm_medium={utm['utm_medium']}"
+        f"&utm_campaign={utm['utm_campaign']}"
+    )
 
     item = {
         "item_id": product["item_id"],
@@ -67,46 +69,45 @@ def simulate_user(user_num):
 
     # 1. 所有人瀏覽首頁
     send_event(client_id, "page_view", {
-        "page_location": "https://smillzy.github.io/GTM_GA4_practice/",
+        "page_location": utm_url,
         "page_title": "Pintoo 拼圖商店",
-        **utm_params
     })
 
     # 2. 70% 查看商品
     if random.random() < 0.70:
         send_event(client_id, "view_item", {
+            "page_location": utm_url,
             "currency": "TWD",
             "value": product["price"],
             "items": [item],
-            **utm_params
         })
 
         # 3. 45% 加入購物車
         if random.random() < 0.45:
             send_event(client_id, "add_to_cart", {
+                "page_location": utm_url,
                 "currency": "TWD",
                 "value": product["price"],
                 "items": [item],
-                **utm_params
             })
 
             # 4. 55% 進入結帳
             if random.random() < 0.55:
                 send_event(client_id, "begin_checkout", {
+                    "page_location": utm_url,
                     "currency": "TWD",
                     "value": product["price"],
                     "items": [item],
-                    **utm_params
                 })
 
                 # 5. 70% 完成購買
                 if random.random() < 0.70:
                     send_event(client_id, "purchase", {
+                        "page_location": utm_url,
                         "transaction_id": "TXN-" + str(random.randint(100000, 999999)),
                         "currency": "TWD",
                         "value": product["price"],
                         "items": [item],
-                        **utm_params
                     })
 
     source_label = utm["utm_source"] + "/" + utm["utm_medium"]
@@ -123,7 +124,7 @@ for i in range(1, TOTAL_USERS + 1):
     simulate_user(i)
     time.sleep(0.05)
 
-print("\n✅ 模擬完成！請到 GA4 後台查看：")
+print("\n模擬完成！請到 GA4 後台查看：")
 print("   - 即時報表：立即可見")
 print("   - 事件報表：24~48小時後顯示")
 print("   - 流量來源：報表 > 獲客 > 流量獲取")
