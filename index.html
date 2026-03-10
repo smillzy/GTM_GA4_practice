@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pintoo 拼圖電商作品集 - 精選 AI 學習筆記、設計插畫拼圖">
+<title>Pintoo 拼圖商店</title>
+
+<!-- GTM -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N6FVFZ2G');</script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; }
+
+header {
+  background: #2d89ef;
+  color: white;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header h1 { font-size: 22px; }
+header a { color: white; text-decoration: none; font-size: 14px; }
+
+.hero {
+  background: linear-gradient(135deg, #2d89ef, #1a5fb4);
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+}
+.hero h2 { font-size: 32px; margin-bottom: 12px; }
+.hero p { font-size: 16px; opacity: 0.9; }
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  width: 280px;
+  padding: 24px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+.card:hover { transform: translateY(-4px); }
+.card .emoji { font-size: 48px; margin-bottom: 12px; }
+.card h3 { font-size: 18px; margin-bottom: 8px; }
+.card .price { color: #2d89ef; font-size: 20px; font-weight: bold; margin: 12px 0; }
+.card .tag { background: #e8f0fe; color: #2d89ef; font-size: 12px; padding: 4px 10px; border-radius: 20px; display: inline-block; margin-bottom: 16px; }
+
+button {
+  background: #2d89ef;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 100%;
+}
+button:hover { background: #1a5fb4; }
+
+footer {
+  text-align: center;
+  padding: 24px;
+  color: #888;
+  font-size: 13px;
+  border-top: 1px solid #ddd;
+  margin-top: 40px;
+}
+</style>
+</head>
+<body>
+
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N6FVFZ2G"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header>
+  <h1>🧩 Pintoo 商店</h1>
+  <a href="cart.html">🛒 購物車</a>
+</header>
+
+<div class="hero">
+  <h2>探索無限拼圖樂趣</h2>
+  <p>每一片都是創意，每一盒都是故事</p>
+</div>
+
+<div class="products">
+
+  <div class="card">
+    <div class="emoji">📘</div>
+    <h3>AI 學習筆記</h3>
+    <div class="tag">暢銷商品</div>
+    <div class="price">NT$299</div>
+    <p style="font-size:13px;color:#666;margin-bottom:16px;">資料分析 / GA4 / Python 入門</p>
+    <button onclick="goProduct('AI學習筆記', 299, 'P001')">查看商品</button>
+  </div>
+
+  <div class="card">
+    <div class="emoji">🎨</div>
+    <h3>設計插畫拼圖</h3>
+    <div class="tag">新品上架</div>
+    <div class="price">NT$499</div>
+    <p style="font-size:13px;color:#666;margin-bottom:16px;">台灣插畫師聯名限定款</p>
+    <button onclick="goProduct('設計插畫拼圖', 499, 'P002')">查看商品</button>
+  </div>
+
+  <div class="card">
+    <div class="emoji">🌏</div>
+    <h3>世界地圖拼圖</h3>
+    <div class="tag">熱門推薦</div>
+    <div class="price">NT$599</div>
+    <p style="font-size:13px;color:#666;margin-bottom:16px;">1000片精裝版，附收納袋</p>
+    <button onclick="goProduct('世界地圖拼圖', 599, 'P003')">查看商品</button>
+  </div>
+
+</div>
+
+<footer>© 2025 Pintoo 拼圖商店 | GA4 作品集練習專案</footer>
+
+<script>
+function goProduct(name, price, id) {
+  dataLayer = window.dataLayer || [];
+  dataLayer.push({
+    event: 'view_item',
+    ecommerce: {
+      items: [{
+        item_id: id,
+        item_name: name,
+        price: price,
+        quantity: 1
+      }]
+    }
+  });
+  // 取得 UTM 參數往下帶
+  const utm = window.location.search;
+  window.location = 'product.html?id=' + id + '&name=' + encodeURIComponent(name) + '&price=' + price + utm.replace('?','&');
+}
+</script>
+
+</body>
+</html>

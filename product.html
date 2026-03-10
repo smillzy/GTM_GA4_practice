@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商品頁 | Pintoo 拼圖商店</title>
+
+<!-- GTM -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N6FVFZ2G');</script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; }
+
+header {
+  background: #2d89ef;
+  color: white;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header a { color: white; text-decoration: none; font-size: 14px; }
+
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  padding: 32px;
+  text-align: center;
+}
+
+.emoji { font-size: 64px; margin-bottom: 16px; }
+h1 { font-size: 24px; margin-bottom: 8px; }
+.price { color: #2d89ef; font-size: 28px; font-weight: bold; margin: 16px 0; }
+.desc { color: #666; font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+
+.tags { margin-bottom: 24px; }
+.tag { background: #e8f0fe; color: #2d89ef; font-size: 12px; padding: 4px 12px; border-radius: 20px; display: inline-block; margin: 4px; }
+
+.btn-group { display: flex; gap: 12px; }
+button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+}
+.btn-cart { background: #f0f0f0; color: #333; }
+.btn-cart:hover { background: #ddd; }
+.btn-buy { background: #28a745; color: white; }
+.btn-buy:hover { background: #1e7e34; }
+
+.back { display: inline-block; margin-top: 20px; color: #2d89ef; text-decoration: none; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N6FVFZ2G"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header>
+  <a href="index.html">← 回首頁</a>
+  <a href="cart.html">🛒 購物車</a>
+</header>
+
+<div class="container">
+  <div class="emoji" id="emoji">📘</div>
+  <h1 id="productName">AI 學習筆記</h1>
+  <div class="price" id="productPrice">NT$299</div>
+  <div class="tags">
+    <span class="tag">GA4</span>
+    <span class="tag">資料分析</span>
+    <span class="tag">Python</span>
+  </div>
+  <p class="desc" id="productDesc">
+    適合行銷人員、數據分析師入門學習。<br>
+    涵蓋 GA4 事件設定、UTM 追蹤、數據解讀、廣告成效分析。
+  </p>
+
+  <div class="btn-group">
+    <button class="btn-cart" onclick="addCart()">🛒 加入購物車</button>
+    <button class="btn-buy" onclick="buyNow()">立即購買</button>
+  </div>
+
+  <a href="index.html" class="back">← 繼續購物</a>
+</div>
+
+<script>
+// 從 URL 取得商品資訊
+const params = new URLSearchParams(window.location.search);
+const productName = params.get('name') || 'AI學習筆記';
+const productPrice = parseInt(params.get('price')) || 299;
+const productId = params.get('id') || 'P001';
+
+const emojiMap = { P001: '📘', P002: '🎨', P003: '🌏' };
+document.getElementById('emoji').textContent = emojiMap[productId] || '📘';
+document.getElementById('productName').textContent = productName;
+document.getElementById('productPrice').textContent = 'NT$' + productPrice;
+
+window.dataLayer = window.dataLayer || [];
+
+function addCart() {
+  dataLayer.push({
+    event: 'add_to_cart',
+    ecommerce: {
+      items: [{
+        item_id: productId,
+        item_name: productName,
+        price: productPrice,
+        quantity: 1
+      }]
+    }
+  });
+
+  // 儲存到 localStorage
+  localStorage.setItem('cart_item', JSON.stringify({ id: productId, name: productName, price: productPrice }));
+
+  alert('✅ 已加入購物車！');
+}
+
+function buyNow() {
+  dataLayer.push({
+    event: 'begin_checkout',
+    ecommerce: {
+      items: [{
+        item_id: productId,
+        item_name: productName,
+        price: productPrice,
+        quantity: 1
+      }]
+    }
+  });
+
+  localStorage.setItem('cart_item', JSON.stringify({ id: productId, name: productName, price: productPrice }));
+
+  const utm = window.location.search;
+  window.location = 'cart.html' + utm;
+}
+</script>
+
+</body>
+</html>

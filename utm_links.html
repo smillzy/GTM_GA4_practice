@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>UTM 連結產生器 | Pintoo</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 40px 20px; }
+h1 { text-align: center; color: #2d89ef; margin-bottom: 8px; }
+.subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 32px; }
+
+.grid { display: flex; flex-wrap: wrap; gap: 20px; max-width: 900px; margin: 0 auto; }
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 20px;
+  flex: 1;
+  min-width: 260px;
+}
+.card h3 { font-size: 15px; margin-bottom: 12px; color: #333; }
+.card .channel { font-size: 12px; color: #888; margin-bottom: 16px; }
+
+.link-item { margin-bottom: 12px; }
+.link-item label { font-size: 12px; color: #666; display: block; margin-bottom: 4px; }
+.link-box {
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 11px;
+  color: #444;
+  word-break: break-all;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.link-box:hover { background: #e8f0fe; }
+.copy-hint { font-size: 11px; color: #28a745; margin-top: 4px; display: none; }
+
+.open-btn {
+  display: inline-block;
+  margin-top: 12px;
+  background: #2d89ef;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  text-decoration: none;
+}
+.open-btn:hover { background: #1a5fb4; }
+</style>
+</head>
+<body>
+
+<h1>📊 UTM 追蹤連結</h1>
+<p class="subtitle">點擊連結可複製 | 用於模擬各渠道流量來源</p>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const BASE = "https://smillzy.github.io/GA4/index.html";
+
+const channels = [
+  {
+    title: "🔍 Google 搜尋廣告",
+    channel: "付費搜尋 (CPC)",
+    links: [
+      { label: "春季特賣活動", utm: "?utm_source=google&utm_medium=cpc&utm_campaign=spring_sale&utm_content=ad1" },
+      { label: "拼圖關鍵字廣告", utm: "?utm_source=google&utm_medium=cpc&utm_campaign=puzzle_kw&utm_content=ad2" },
+    ]
+  },
+  {
+    title: "📘 Facebook 貼文",
+    channel: "社群媒體 (Social)",
+    links: [
+      { label: "3月商品貼文", utm: "?utm_source=facebook&utm_medium=social&utm_campaign=fb_post_0310&utm_content=post1" },
+      { label: "Facebook 廣告", utm: "?utm_source=facebook&utm_medium=paid_social&utm_campaign=fb_ads_mar&utm_content=carousel" },
+    ]
+  },
+  {
+    title: "📸 Instagram",
+    channel: "社群媒體 (Social)",
+    links: [
+      { label: "IG Story 連結", utm: "?utm_source=instagram&utm_medium=social&utm_campaign=ig_story_0310&utm_content=story1" },
+      { label: "IG Reels 連結", utm: "?utm_source=instagram&utm_medium=social&utm_campaign=ig_reels_mar&utm_content=reel1" },
+    ]
+  },
+  {
+    title: "📧 Email 電子報",
+    channel: "Email 行銷",
+    links: [
+      { label: "三月電子報", utm: "?utm_source=email&utm_medium=email&utm_campaign=newsletter_mar&utm_content=btn_cta" },
+      { label: "會員專屬優惠信", utm: "?utm_source=email&utm_medium=email&utm_campaign=member_offer&utm_content=header_link" },
+    ]
+  },
+];
+
+const grid = document.getElementById('grid');
+
+channels.forEach(ch => {
+  let linksHTML = ch.links.map(l => `
+    <div class="link-item">
+      <label>${l.label}</label>
+      <div class="link-box" onclick="copyLink(this, '${BASE + l.utm}')">${BASE + l.utm}</div>
+      <div class="copy-hint">✅ 已複製！</div>
+    </div>
+  `).join('');
+
+  const firstLink = BASE + ch.links[0].utm;
+
+  grid.innerHTML += `
+    <div class="card">
+      <h3>${ch.title}</h3>
+      <div class="channel">${ch.channel}</div>
+      ${linksHTML}
+      <a class="open-btn" href="${firstLink}" target="_blank">開啟測試 →</a>
+    </div>
+  `;
+});
+
+function copyLink(el, url) {
+  navigator.clipboard.writeText(url).then(() => {
+    const hint = el.nextElementSibling;
+    hint.style.display = 'block';
+    setTimeout(() => hint.style.display = 'none', 2000);
+  });
+}
+</script>
+</body>
+</html>

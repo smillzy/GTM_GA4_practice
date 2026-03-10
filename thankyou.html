@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>訂單完成 | Pintoo 拼圖商店</title>
+
+<!-- GTM -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N6FVFZ2G');</script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; }
+
+header {
+  background: #2d89ef;
+  color: white;
+  padding: 16px 32px;
+}
+header a { color: white; text-decoration: none; font-size: 14px; }
+
+.container {
+  max-width: 500px;
+  margin: 60px auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  padding: 48px 32px;
+  text-align: center;
+}
+
+.check { font-size: 64px; margin-bottom: 20px; }
+h1 { font-size: 26px; color: #28a745; margin-bottom: 12px; }
+.subtitle { color: #666; font-size: 15px; margin-bottom: 32px; line-height: 1.6; }
+
+.order-info {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 32px;
+  text-align: left;
+}
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+}
+.order-row:last-child { border-bottom: none; font-weight: bold; color: #2d89ef; }
+
+.utm-info {
+  background: #e8f0fe;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+  font-size: 13px;
+  color: #1a5fb4;
+  text-align: left;
+}
+.utm-info strong { display: block; margin-bottom: 8px; }
+
+button {
+  background: #2d89ef;
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}
+button:hover { background: #1a5fb4; }
+</style>
+</head>
+<body>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N6FVFZ2G"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header>
+  <a href="index.html">🧩 Pintoo 商店</a>
+</header>
+
+<div class="container">
+  <div class="check">🎉</div>
+  <h1>訂單完成！</h1>
+  <p class="subtitle" id="greeting">感謝您的購買，<br>我們將盡快為您處理訂單。</p>
+
+  <div class="order-info">
+    <div class="order-row"><span>訂單編號</span><span id="txnId">-</span></div>
+    <div class="order-row"><span>商品</span><span id="productName">-</span></div>
+    <div class="order-row"><span>金額</span><span id="productPrice">-</span></div>
+  </div>
+
+  <div class="utm-info" id="utmInfo" style="display:none">
+    <strong>📊 流量來源（UTM）</strong>
+    <div id="utmDetails"></div>
+  </div>
+
+  <button onclick="window.location='index.html'">繼續購物</button>
+</div>
+
+<script>
+window.dataLayer = window.dataLayer || [];
+
+const params = new URLSearchParams(window.location.search);
+const name = params.get('name') || '顧客';
+const product = params.get('product') || 'AI學習筆記';
+const price = params.get('price') || 299;
+const txnId = 'TXN-' + Date.now();
+
+document.getElementById('greeting').innerHTML = `感謝 <strong>${name}</strong> 的購買，<br>我們將盡快為您處理訂單。`;
+document.getElementById('txnId').textContent = txnId;
+document.getElementById('productName').textContent = product;
+document.getElementById('productPrice').textContent = 'NT$' + price;
+
+// 顯示 UTM 來源
+const utmSource = params.get('utm_source');
+const utmMedium = params.get('utm_medium');
+const utmCampaign = params.get('utm_campaign');
+
+if (utmSource) {
+  document.getElementById('utmInfo').style.display = 'block';
+  document.getElementById('utmDetails').innerHTML = `
+    來源：${utmSource}<br>
+    媒介：${utmMedium || '-'}<br>
+    活動：${utmCampaign || '-'}
+  `;
+}
+
+// 清除購物車
+localStorage.removeItem('cart_item');
+</script>
+
+</body>
+</html>
