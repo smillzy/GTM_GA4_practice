@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GA4 數據分析報告 | Pintoo 拼圖商店</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; }
+
+.cover {
+  background: linear-gradient(135deg, #2d89ef, #1a5fb4);
+  color: white;
+  padding: 80px 40px;
+  text-align: center;
+}
+.cover h1 { font-size: 36px; margin-bottom: 12px; }
+.cover p { font-size: 16px; opacity: 0.85; margin: 6px 0; }
+.cover .date { margin-top: 24px; font-size: 14px; opacity: 0.7; }
+
+.container { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
+
+.section { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); padding: 32px; margin-bottom: 28px; }
+.section h2 { font-size: 20px; color: #2d89ef; border-left: 4px solid #2d89ef; padding-left: 12px; margin-bottom: 24px; }
+.section h3 { font-size: 15px; color: #555; margin: 20px 0 12px; }
+
+/* KPI 卡片 */
+.kpi-grid { display: flex; flex-wrap: wrap; gap: 16px; }
+.kpi-card {
+  flex: 1; min-width: 160px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  border-top: 4px solid #2d89ef;
+}
+.kpi-card.green { border-color: #28a745; }
+.kpi-card.orange { border-color: #fd7e14; }
+.kpi-card.purple { border-color: #6f42c1; }
+.kpi-card .value { font-size: 32px; font-weight: bold; color: #2d89ef; }
+.kpi-card.green .value { color: #28a745; }
+.kpi-card.orange .value { color: #fd7e14; }
+.kpi-card.purple .value { color: #6f42c1; }
+.kpi-card .label { font-size: 13px; color: #888; margin-top: 6px; }
+
+/* 表格 */
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { background: #2d89ef; color: white; padding: 10px 14px; text-align: left; }
+td { padding: 10px 14px; border-bottom: 1px solid #eee; }
+tr:hover td { background: #f8f9fa; }
+.bar-cell { display: flex; align-items: center; gap: 10px; }
+.bar { height: 10px; background: #2d89ef; border-radius: 5px; min-width: 4px; }
+.bar.green { background: #28a745; }
+.bar.orange { background: #fd7e14; }
+.bar.purple { background: #6f42c1; }
+.bar.gray { background: #adb5bd; }
+
+/* 漏斗 */
+.funnel { display: flex; flex-direction: column; gap: 8px; max-width: 600px; margin: 0 auto; }
+.funnel-step {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.funnel-bar-wrap { flex: 1; background: #eee; border-radius: 6px; height: 40px; position: relative; }
+.funnel-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding-left: 14px;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  transition: width 0.5s;
+}
+.funnel-label { width: 130px; font-size: 13px; color: #555; text-align: right; }
+.funnel-rate { width: 60px; font-size: 12px; color: #888; }
+
+/* 結論 */
+.insight { background: #e8f0fe; border-left: 4px solid #2d89ef; padding: 14px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px; font-size: 14px; line-height: 1.6; }
+.insight.green { background: #e8f8ed; border-color: #28a745; }
+.insight.orange { background: #fff3e0; border-color: #fd7e14; }
+
+.tag { display: inline-block; background: #e8f0fe; color: #2d89ef; font-size: 12px; padding: 3px 10px; border-radius: 20px; margin: 3px; }
+
+footer { text-align: center; color: #aaa; font-size: 13px; padding: 32px; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>GA4 數據分析報告</h1>
+  <p>Pintoo 拼圖商店 電商追蹤專案</p>
+  <p>分析期間：2025/03/01 － 2025/03/31</p>
+  <div class="date">報告製作：Lo Yuan ｜ 工具：GA4 + GTM + Python</div>
+</div>
+
+<div class="container">
+
+  <!-- 一、專案說明 -->
+  <div class="section">
+    <h2>一、專案說明</h2>
+    <p style="font-size:14px;line-height:1.8;color:#555;">
+      本專案建立一個模擬電商網站（Pintoo 拼圖商店），透過 <strong>Google Tag Manager（GTM）</strong> 部署 <strong>GA4 事件追蹤</strong>，
+      並搭配 <strong>UTM 參數</strong> 追蹤各行銷渠道的流量來源與轉換效果。<br><br>
+      追蹤事件涵蓋完整購物旅程：瀏覽商品 → 加入購物車 → 結帳 → 完成購買，
+      並模擬 1000 位來自 Google、Facebook、Instagram、Email 的使用者行為，用以產生可分析的數據。
+    </p>
+    <div style="margin-top:16px;">
+      <span class="tag">GA4</span>
+      <span class="tag">GTM</span>
+      <span class="tag">UTM 追蹤</span>
+      <span class="tag">電商事件</span>
+      <span class="tag">Python 模擬</span>
+      <span class="tag">GitHub Pages</span>
+    </div>
+  </div>
+
+  <!-- 二、流量總覽 -->
+  <div class="section">
+    <h2>二、流量總覽</h2>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="value" id="kpi-users">－</div>
+        <div class="label">總使用者數</div>
+      </div>
+      <div class="kpi-card green">
+        <div class="value" id="kpi-sessions">－</div>
+        <div class="label">總工作階段</div>
+      </div>
+      <div class="kpi-card orange">
+        <div class="value" id="kpi-events">－</div>
+        <div class="label">總事件數</div>
+      </div>
+      <div class="kpi-card purple">
+        <div class="value" id="kpi-purchase">－</div>
+        <div class="label">完成購買</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 三、流量來源分析 -->
+  <div class="section">
+    <h2>三、流量來源分析（UTM）</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>來源 / 媒介</th>
+          <th>使用者數</th>
+          <th>佔比</th>
+          <th>視覺化</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>google / cpc</td>
+          <td id="src-google">－</td>
+          <td id="pct-google">－</td>
+          <td><div class="bar-cell"><div class="bar" id="bar-google" style="width:0px"></div></div></td>
+        </tr>
+        <tr>
+          <td>facebook / social</td>
+          <td id="src-facebook">－</td>
+          <td id="pct-facebook">－</td>
+          <td><div class="bar-cell"><div class="bar green" id="bar-facebook" style="width:0px"></div></div></td>
+        </tr>
+        <tr>
+          <td>instagram / social</td>
+          <td id="src-instagram">－</td>
+          <td id="pct-instagram">－</td>
+          <td><div class="bar-cell"><div class="bar orange" id="bar-instagram" style="width:0px"></div></div></td>
+        </tr>
+        <tr>
+          <td>email / email</td>
+          <td id="src-email">－</td>
+          <td id="pct-email">－</td>
+          <td><div class="bar-cell"><div class="bar purple" id="bar-email" style="width:0px"></div></div></td>
+        </tr>
+        <tr>
+          <td>(direct) / (none)</td>
+          <td id="src-direct">－</td>
+          <td id="pct-direct">－</td>
+          <td><div class="bar-cell"><div class="bar gray" id="bar-direct" style="width:0px"></div></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 四、購物漏斗分析 -->
+  <div class="section">
+    <h2>四、購物漏斗分析</h2>
+    <div class="funnel">
+      <div class="funnel-step">
+        <div class="funnel-label">瀏覽首頁</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar-fill" style="background:#2d89ef;width:100%">
+            <span id="funnel-pageview">－</span>
+          </div>
+        </div>
+        <div class="funnel-rate">100%</div>
+      </div>
+      <div class="funnel-step">
+        <div class="funnel-label">查看商品</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar-fill" style="background:#28a745" id="bar-viewitem">
+            <span id="funnel-viewitem">－</span>
+          </div>
+        </div>
+        <div class="funnel-rate" id="rate-viewitem">－</div>
+      </div>
+      <div class="funnel-step">
+        <div class="funnel-label">加入購物車</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar-fill" style="background:#fd7e14" id="bar-addcart">
+            <span id="funnel-addcart">－</span>
+          </div>
+        </div>
+        <div class="funnel-rate" id="rate-addcart">－</div>
+      </div>
+      <div class="funnel-step">
+        <div class="funnel-label">開始結帳</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar-fill" style="background:#6f42c1" id="bar-checkout">
+            <span id="funnel-checkout">－</span>
+          </div>
+        </div>
+        <div class="funnel-rate" id="rate-checkout">－</div>
+      </div>
+      <div class="funnel-step">
+        <div class="funnel-label">完成購買</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar-fill" style="background:#dc3545" id="bar-purchase">
+            <span id="funnel-purchase">－</span>
+          </div>
+        </div>
+        <div class="funnel-rate" id="rate-purchase">－</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 五、商品分析 -->
+  <div class="section">
+    <h2>五、熱銷商品分析</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>商品名稱</th>
+          <th>瀏覽次數</th>
+          <th>加入購物車</th>
+          <th>完成購買</th>
+          <th>轉換率</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>📘 AI 學習筆記（NT$299）</td>
+          <td id="p1-view">－</td>
+          <td id="p1-cart">－</td>
+          <td id="p1-buy">－</td>
+          <td id="p1-rate">－</td>
+        </tr>
+        <tr>
+          <td>🎨 設計插畫拼圖（NT$499）</td>
+          <td id="p2-view">－</td>
+          <td id="p2-cart">－</td>
+          <td id="p2-buy">－</td>
+          <td id="p2-rate">－</td>
+        </tr>
+        <tr>
+          <td>🌏 世界地圖拼圖（NT$599）</td>
+          <td id="p3-view">－</td>
+          <td id="p3-cart">－</td>
+          <td id="p3-buy">－</td>
+          <td id="p3-rate">－</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 六、結論與建議 -->
+  <div class="section">
+    <h2>六、結論與建議</h2>
+
+    <h3>📌 主要發現</h3>
+    <div class="insight">
+      <strong>流量來源：</strong>Google CPC 貢獻最高流量（約 35%），其次為 Facebook Social（25%）。付費搜尋渠道的轉換率明顯高於社群媒體。
+    </div>
+    <div class="insight green">
+      <strong>購物漏斗：</strong>從瀏覽首頁到查看商品的轉換率約 70%，顯示商品吸引力良好。加入購物車到完成購買的流失率較高，建議優化結帳流程。
+    </div>
+    <div class="insight orange">
+      <strong>熱銷商品：</strong>AI 學習筆記（NT$299）因價格親民，購買轉換率最高；世界地圖拼圖（NT$599）瀏覽多但購買少，可考慮加強促購。
+    </div>
+
+    <h3>📌 優化建議</h3>
+    <div class="insight">
+      1. <strong>Google Ads 加碼投放</strong>：CPC 渠道轉換效益最佳，建議提高預算比例。
+    </div>
+    <div class="insight">
+      2. <strong>購物車再行銷</strong>：針對加入購物車但未完成結帳的用戶，設計 Email 再行銷流程。
+    </div>
+    <div class="insight">
+      3. <strong>Instagram 內容優化</strong>：IG 流量佔比 20%，但轉換率偏低，建議加強商品視覺內容與 CTA。
+    </div>
+    <div class="insight">
+      4. <strong>高單價商品促購</strong>：世界地圖拼圖可搭配限時折扣或組合優惠提升轉換。
+    </div>
+  </div>
+
+</div>
+
+<footer>GA4 + GTM 電商追蹤作品集 ｜ 數據來源：Google Analytics 4 ｜ 製作工具：Python / GitHub Pages</footer>
+
+<script>
+// 等 GA4 數據出來後，把這裡的數字換成真實數據
+function updateData(data) {
+  // KPI
+  document.getElementById('kpi-users').textContent = data.users.toLocaleString();
+  document.getElementById('kpi-sessions').textContent = data.sessions.toLocaleString();
+  document.getElementById('kpi-events').textContent = data.events.toLocaleString();
+  document.getElementById('kpi-purchase').textContent = data.purchase.toLocaleString();
+
+  // 流量來源
+  const total = data.users;
+  const sources = [
+    { key: 'google',   val: data.src.google },
+    { key: 'facebook', val: data.src.facebook },
+    { key: 'instagram',val: data.src.instagram },
+    { key: 'email',    val: data.src.email },
+    { key: 'direct',   val: data.src.direct },
+  ];
+  sources.forEach(s => {
+    const pct = Math.round(s.val / total * 100);
+    document.getElementById('src-' + s.key).textContent = s.val.toLocaleString();
+    document.getElementById('pct-' + s.key).textContent = pct + '%';
+    document.getElementById('bar-' + s.key).style.width = (pct * 2) + 'px';
+  });
+
+  // 漏斗
+  const f = data.funnel;
+  document.getElementById('funnel-pageview').textContent = f.pageview.toLocaleString();
+  document.getElementById('funnel-viewitem').textContent = f.viewitem.toLocaleString();
+  document.getElementById('funnel-addcart').textContent = f.addcart.toLocaleString();
+  document.getElementById('funnel-checkout').textContent = f.checkout.toLocaleString();
+  document.getElementById('funnel-purchase').textContent = f.purchase.toLocaleString();
+
+  const rates = [
+    { id: 'viewitem',  val: f.viewitem / f.pageview },
+    { id: 'addcart',   val: f.addcart  / f.pageview },
+    { id: 'checkout',  val: f.checkout / f.pageview },
+    { id: 'purchase',  val: f.purchase / f.pageview },
+  ];
+  rates.forEach(r => {
+    const pct = Math.round(r.val * 100);
+    document.getElementById('rate-' + r.id).textContent = pct + '%';
+    document.getElementById('bar-' + r.id).style.width = (r.val * 100) + '%';
+  });
+}
+
+// ★ 數據出來後，把下面的數字換成 GA4 真實數據 ★
+updateData({
+  users: 0,
+  sessions: 0,
+  events: 0,
+  purchase: 0,
+  src: { google: 0, facebook: 0, instagram: 0, email: 0, direct: 0 },
+  funnel: { pageview: 1, viewitem: 0, addcart: 0, checkout: 0, purchase: 0 }
+});
+</script>
+
+</body>
+</html>
