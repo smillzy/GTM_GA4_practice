@@ -421,43 +421,28 @@
               <th>銷售佔比</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="product-tbody">
             <tr>
               <td>🎨 設計插畫拼圖（NT$499）</td>
-              <td>266</td>
+              <td class="p-qty">266</td>
               <td>NT$132,734</td>
-              <td>
-                <div class="bar-cell">
-                  <div class="bar orange" style="width: 140px"></div>
-                  34.5%
-                </div>
-              </td>
+              <td><div class="bar-cell"><div class="bar orange p-bar"></div><span class="p-pct"></span></div></td>
             </tr>
             <tr>
               <td>📘 AI 學習筆記（NT$299）</td>
-              <td>253</td>
+              <td class="p-qty">253</td>
               <td>NT$75,647</td>
-              <td>
-                <div class="bar-cell">
-                  <div class="bar" style="width: 133px"></div>
-                  32.8%
-                </div>
-              </td>
+              <td><div class="bar-cell"><div class="bar p-bar"></div><span class="p-pct"></span></div></td>
             </tr>
             <tr>
               <td>🌏 世界地圖拼圖（NT$599）</td>
-              <td>247</td>
+              <td class="p-qty">247</td>
               <td>NT$147,953</td>
-              <td>
-                <div class="bar-cell">
-                  <div class="bar green" style="width: 130px"></div>
-                  32.1%
-                </div>
-              </td>
+              <td><div class="bar-cell"><div class="bar green p-bar"></div><span class="p-pct"></span></div></td>
             </tr>
             <tr style="font-weight: bold; background: #f8f9fa">
               <td>合計</td>
-              <td>766</td>
+              <td id="p-total">－</td>
               <td>NT$356,334</td>
               <td>100%</td>
             </tr>
@@ -529,6 +514,17 @@
         const pct = (count / pageview * 100).toFixed(1);
         document.getElementById('rate-' + id).textContent = pct + '%';
         document.getElementById('bar-' + id).style.width = pct + '%';
+      });
+
+      // 商品銷售佔比：從 HTML 讀取件數，自動計算
+      const qtys = Array.from(document.querySelectorAll('.p-qty'));
+      const total = qtys.reduce((sum, el) => sum + parseInt(el.textContent), 0);
+      document.getElementById('p-total').textContent = total.toLocaleString();
+      qtys.forEach((el, i) => {
+        const qty = parseInt(el.textContent);
+        const pct = (qty / total * 100).toFixed(1);
+        document.querySelectorAll('.p-pct')[i].textContent = pct + '%';
+        document.querySelectorAll('.p-bar')[i].style.width = (qty / total * 160).toFixed(0) + 'px';
       });
     </script>
   </body>
