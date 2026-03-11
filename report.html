@@ -149,47 +149,31 @@ footer { text-align: center; color: #aaa; font-size: 13px; padding: 32px; }
     <h2>三、流量來源分析（UTM）</h2>
     <div class="insight orange">
       <strong>📌 說明：</strong>
-      事件追蹤透過 GA4 Measurement Protocol 驗證正常運作。UTM 流量歸因的設計是當真實使用者透過瀏覽器點擊帶有 UTM 參數的連結時，由 GTM 自動捕捉並送至 GA4，已透過 utm_links.html 手動測試確認運作正常。
+      UTM 流量歸因的設計是當真實使用者透過瀏覽器點擊帶有 UTM 參數的連結時，由 GTM 自動捕捉並送至 GA4，已透過 utm_links.html 手動測試確認運作正常。本次數據以 Measurement Protocol 模擬送出，流量來源歸類如下：
     </div>
     <table>
       <thead>
         <tr>
-          <th>來源 / 媒介</th>
-          <th>使用者數</th>
-          <th>佔比</th>
+          <th>管道群組</th>
+          <th>工作階段</th>
           <th>視覺化</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>google / cpc</td>
-          <td id="src-google">－</td>
-          <td id="pct-google">－</td>
-          <td><div class="bar-cell"><div class="bar" id="bar-google" style="width:0px"></div></div></td>
+          <td>Unassigned（模擬流量）</td>
+          <td>8,967</td>
+          <td><div class="bar-cell"><div class="bar" style="width:200px"></div></div></td>
         </tr>
         <tr>
-          <td>facebook / social</td>
-          <td id="src-facebook">－</td>
-          <td id="pct-facebook">－</td>
-          <td><div class="bar-cell"><div class="bar green" id="bar-facebook" style="width:0px"></div></div></td>
+          <td>Referral</td>
+          <td>2</td>
+          <td><div class="bar-cell"><div class="bar green" style="width:4px"></div></div></td>
         </tr>
         <tr>
-          <td>instagram / social</td>
-          <td id="src-instagram">－</td>
-          <td id="pct-instagram">－</td>
-          <td><div class="bar-cell"><div class="bar orange" id="bar-instagram" style="width:0px"></div></div></td>
-        </tr>
-        <tr>
-          <td>email / email</td>
-          <td id="src-email">－</td>
-          <td id="pct-email">－</td>
-          <td><div class="bar-cell"><div class="bar purple" id="bar-email" style="width:0px"></div></div></td>
-        </tr>
-        <tr>
-          <td>(direct) / (none)</td>
-          <td id="src-direct">－</td>
-          <td id="pct-direct">－</td>
-          <td><div class="bar-cell"><div class="bar gray" id="bar-direct" style="width:0px"></div></div></td>
+          <td>Direct</td>
+          <td>1</td>
+          <td><div class="bar-cell"><div class="bar gray" style="width:2px"></div></div></td>
         </tr>
       </tbody>
     </table>
@@ -254,33 +238,35 @@ footer { text-align: center; color: #aaa; font-size: 13px; padding: 32px; }
       <thead>
         <tr>
           <th>商品名稱</th>
-          <th>瀏覽次數</th>
-          <th>加入購物車</th>
-          <th>完成購買</th>
-          <th>轉換率</th>
+          <th>完成購買（件）</th>
+          <th>預估收益</th>
+          <th>銷售佔比</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>📘 AI 學習筆記（NT$299）</td>
-          <td>－</td>
-          <td>－</td>
-          <td>253</td>
-          <td>－</td>
+          <td>🎨 設計插畫拼圖（NT$499）</td>
+          <td>266</td>
+          <td>NT$132,734</td>
+          <td><div class="bar-cell"><div class="bar orange" style="width:140px"></div> 34.5%</div></td>
         </tr>
         <tr>
-          <td>🎨 設計插畫拼圖（NT$499）</td>
-          <td>－</td>
-          <td>－</td>
-          <td>266</td>
-          <td>－</td>
+          <td>📘 AI 學習筆記（NT$299）</td>
+          <td>253</td>
+          <td>NT$75,647</td>
+          <td><div class="bar-cell"><div class="bar" style="width:133px"></div> 32.8%</div></td>
         </tr>
         <tr>
           <td>🌏 世界地圖拼圖（NT$599）</td>
-          <td>－</td>
-          <td>－</td>
           <td>247</td>
-          <td>－</td>
+          <td>NT$147,953</td>
+          <td><div class="bar-cell"><div class="bar green" style="width:130px"></div> 32.1%</div></td>
+        </tr>
+        <tr style="font-weight:bold;background:#f8f9fa;">
+          <td>合計</td>
+          <td>766</td>
+          <td>NT$356,334</td>
+          <td>100%</td>
         </tr>
       </tbody>
     </table>
@@ -291,28 +277,28 @@ footer { text-align: center; color: #aaa; font-size: 13px; padding: 32px; }
     <h2>六、結論與建議</h2>
 
     <h3>📌 主要發現</h3>
-    <div class="insight">
-      <strong>流量來源：</strong>Google CPC 貢獻最高流量（約 35%），其次為 Facebook Social（25%）。付費搜尋渠道的轉換率明顯高於社群媒體。
-    </div>
     <div class="insight green">
-      <strong>購物漏斗：</strong>從瀏覽首頁到查看商品的轉換率達 69.6%，顯示商品吸引力良好。加入購物車（31.5%）到完成購買（12.3%）的流失率較高，建議優化結帳流程以提升轉換。
+      <strong>購物漏斗：</strong>從瀏覽首頁到查看商品的轉換率達 69.6%，顯示商品吸引力良好。加入購物車（31.5%）到完成購買（12.3%）之間流失率偏高，結帳流程有優化空間。
     </div>
     <div class="insight orange">
-      <strong>熱銷商品：</strong>設計插畫拼圖以 266 件居冠，AI 學習筆記（253件）與世界地圖拼圖（247件）緊追其後，三款商品銷售分布相當平均，總電商收益達 NT$356,334。
+      <strong>熱銷商品：</strong>三款商品銷售分布相當平均（各約 32~35%）。世界地圖拼圖單價最高（NT$599），雖件數最少，但對總收益貢獻最大（NT$147,953）。
+    </div>
+    <div class="insight">
+      <strong>電商收益：</strong>共完成 766 筆購買，總電商收益達 NT$356,334，平均每筆訂單金額約 NT$465。
     </div>
 
     <h3>📌 優化建議</h3>
     <div class="insight">
-      1. <strong>Google Ads 加碼投放</strong>：CPC 渠道轉換效益最佳，建議提高預算比例。
+      1. <strong>優化結帳流程</strong>：add_to_cart（1,964次）到 purchase（770次）流失率達 60%，建議簡化結帳步驟或加入進度條提示。
     </div>
     <div class="insight">
-      2. <strong>購物車再行銷</strong>：針對加入購物車但未完成結帳的用戶，設計 Email 再行銷流程。
+      2. <strong>購物車再行銷</strong>：針對加入購物車但未完成結帳的用戶，搭配 Email 再行銷或限時優惠提升轉換率。
     </div>
     <div class="insight">
-      3. <strong>Instagram 內容優化</strong>：IG 流量佔比 20%，但轉換率偏低，建議加強商品視覺內容與 CTA。
+      3. <strong>高單價商品促購</strong>：世界地圖拼圖收益貢獻最高，可搭配組合優惠或限時折扣進一步提升銷量。
     </div>
     <div class="insight">
-      4. <strong>高單價商品促購</strong>：世界地圖拼圖可搭配限時折扣或組合優惠提升轉換。
+      4. <strong>UTM 追蹤落地</strong>：建立各渠道專屬 UTM 連結，分析不同行銷活動的 ROI，作為後續廣告預算分配依據。
     </div>
   </div>
 
