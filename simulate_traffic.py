@@ -33,7 +33,7 @@ def pick_utm():
 def pick_product():
     return random.choice(PRODUCTS)
 
-def send_event(client_id, session_id, event_name, params):
+def send_event(client_id, session_id, event_name, params, debug=False):
     payload = {
         "client_id": client_id,
         "events": [{
@@ -41,11 +41,14 @@ def send_event(client_id, session_id, event_name, params):
             "params": {
                 "session_id": session_id,
                 "engagement_time_msec": str(random.randint(1000, 8000)),
+                "debug_mode": 1 if debug else 0,
                 **params
             }
         }]
     }
-    requests.post(URL, json=payload)
+    r = requests.post(URL, json=payload)
+    if debug:
+        print(f"  HTTP {r.status_code}")
 
 def simulate_user(user_num):
     client_id = str(uuid.uuid4())
@@ -54,7 +57,7 @@ def simulate_user(user_num):
     product = pick_product()
 
     # UTM 放進網址，GA4 才能識別為流量來源
-    base_url = "https://smillzy.github.io/GTM_GA4_practice/"
+    base_url = "https://smillzy.github.io/ga4-ecommerce-tracking-demo/"
     utm_url = (
         f"{base_url}?utm_source={utm['utm_source']}"
         f"&utm_medium={utm['utm_medium']}"
@@ -129,3 +132,16 @@ print("\n模擬完成！請到 GA4 後台查看：")
 print("   - 即時報表：立即可見")
 print("   - 事件報表：24~48小時後顯示")
 print("   - 流量來源：報表 > 獲客 > 流量獲取")
+
+
+def send_debug_test():
+    """送一筆測試事件到 GA4 DebugView"""
+    client_id = "debug-test-user-001"
+    session_id = "9999999"
+    url = "https://smillzy.github.io/ga4-ecommerce-tracking-demo/?utm_source=debug&utm_medium=test&utm_campaign=debug_test"
+    send_event(client_id, session_id, "page_view", {"page_location": url, "page_title": "Debug Test"}, debug=True)
+    send_event(client_id, session_id, "add_to_cart", {"page_location": url, "currency": "TWD", "value": 299}, debug=True)
+    print("Debug 測試事件已送出！請去 GA4 → 管理 → DebugView 查看")
+
+if __name__ == "__main__":
+    send_debug_test()

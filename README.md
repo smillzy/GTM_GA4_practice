@@ -29,12 +29,12 @@
 
 | 頁面 | 功能 | 網址 |
 |------|------|------|
-| `index.html` | 商店首頁，展示三款商品，點擊觸發 `view_item` 事件 | [首頁](https://smillzy.github.io/GTM_GA4_practice/index.html) |
-| `product.html` | 商品詳細頁，提供加入購物車與立即購買，觸發 `add_to_cart` / `begin_checkout` 事件 | [商品頁](https://smillzy.github.io/GTM_GA4_practice/product.html) |
-| `cart.html` | 購物車與結帳頁，填寫資料後完成購買，觸發 `purchase` 事件 | [購物車](https://smillzy.github.io/GTM_GA4_practice/cart.html) |
-| `thankyou.html` | 訂單完成頁，顯示訂單資訊與 UTM 來源 | [訂單完成](https://smillzy.github.io/GTM_GA4_practice/thankyou.html) |
-| `utm_links.html` | UTM 連結產生器，提供各渠道測試連結 | [UTM 連結](https://smillzy.github.io/GTM_GA4_practice/utm_links.html) |
-| `report.html` | GA4 數據分析報告，呈現流量、漏斗、商品銷售等分析 | [分析報告](https://smillzy.github.io/GTM_GA4_practice/report.html) |
+| `index.html` | 商店首頁，展示三款商品，點擊觸發 `view_item` 事件 | [首頁](https://smillzy.github.io/ga4-ecommerce-tracking-demo/index.html) |
+| `product.html` | 商品詳細頁，提供加入購物車與立即購買，觸發 `add_to_cart` / `begin_checkout` 事件 | [商品頁](https://smillzy.github.io/ga4-ecommerce-tracking-demo/product.html) |
+| `cart.html` | 購物車與結帳頁，填寫資料後完成購買，觸發 `purchase` 事件 | [購物車](https://smillzy.github.io/ga4-ecommerce-tracking-demo/cart.html) |
+| `thankyou.html` | 訂單完成頁，顯示訂單資訊與 UTM 來源 | [訂單完成](https://smillzy.github.io/ga4-ecommerce-tracking-demo/thankyou.html) |
+| `utm_links.html` | UTM 連結產生器，提供各渠道測試連結 | [UTM 連結](https://smillzy.github.io/ga4-ecommerce-tracking-demo/utm_links.html) |
+| `report.html` | GA4 數據分析報告，呈現流量、漏斗、商品銷售等分析 | [分析報告](https://smillzy.github.io/ga4-ecommerce-tracking-demo/report.html) |
 
 ---
 
