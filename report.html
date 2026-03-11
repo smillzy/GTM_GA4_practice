@@ -401,7 +401,7 @@
                 style="background: #dc3545"
                 id="bar-purchase"
               >
-                <span id="funnel-purchase">770</span>
+                <span id="funnel-purchase">766</span>
               </div>
             </div>
             <div class="funnel-rate" id="rate-purchase">－</div>
@@ -425,20 +425,35 @@
             <tr>
               <td>🎨 設計插畫拼圖（NT$499）</td>
               <td class="p-qty">266</td>
-              <td>NT$132,734</td>
-              <td><div class="bar-cell"><div class="bar orange p-bar"></div><span class="p-pct"></span></div></td>
+              <td class="p-rev">132734</td>
+              <td>
+                <div class="bar-cell">
+                  <div class="bar orange p-bar" style="min-width: 4px"></div>
+                  &nbsp;<span class="p-pct"></span>
+                </div>
+              </td>
             </tr>
             <tr>
               <td>📘 AI 學習筆記（NT$299）</td>
               <td class="p-qty">253</td>
-              <td>NT$75,647</td>
-              <td><div class="bar-cell"><div class="bar p-bar"></div><span class="p-pct"></span></div></td>
+              <td class="p-rev">75647</td>
+              <td>
+                <div class="bar-cell">
+                  <div class="bar p-bar" style="min-width: 4px"></div>
+                  &nbsp;<span class="p-pct"></span>
+                </div>
+              </td>
             </tr>
             <tr>
               <td>🌏 世界地圖拼圖（NT$599）</td>
               <td class="p-qty">247</td>
-              <td>NT$147,953</td>
-              <td><div class="bar-cell"><div class="bar green p-bar"></div><span class="p-pct"></span></div></td>
+              <td class="p-rev">147953</td>
+              <td>
+                <div class="bar-cell">
+                  <div class="bar green p-bar" style="min-width: 4px"></div>
+                  &nbsp;<span class="p-pct"></span>
+                </div>
+              </td>
             </tr>
             <tr style="font-weight: bold; background: #f8f9fa">
               <td>合計</td>
@@ -460,8 +475,7 @@
           69.6%，顯示商品吸引力良好。加入購物車（31.5%）到完成購買（12.3%）之間流失率偏高，結帳流程有優化空間。
         </div>
         <div class="insight orange">
-          <strong>熱銷商品：</strong>三款商品銷售分布相當平均（各約
-          32~35%）。世界地圖拼圖單價最高（NT$599），雖件數最少，但對總收益貢獻最大（NT$147,953）。
+          <strong>熱銷商品：</strong>以收益佔比來看，世界地圖拼圖貢獻最高（41.5%，NT$147,953），設計插畫拼圖次之（37.2%，NT$132,734），AI 學習筆記雖件數居中但單價最低，收益佔比僅 21.2%（NT$75,647）。
         </div>
         <div class="insight">
           <strong>電商收益：</strong>共完成 766 筆購買，總電商收益達
@@ -471,7 +485,7 @@
         <h3>📌 優化建議</h3>
         <div class="insight">
           1. <strong>優化結帳流程</strong>：add_to_cart（1,964次）到
-          purchase（770次）流失率達 60%，建議簡化結帳步驟或加入進度條提示。
+          purchase（766次）流失率達 61%，建議簡化結帳步驟或加入進度條提示。
         </div>
         <div class="insight">
           2.
@@ -498,33 +512,58 @@
     <script>
       function updateData(data) {
         // KPI
-        document.getElementById("kpi-users").textContent = data.users.toLocaleString();
-        document.getElementById("kpi-sessions").textContent = data.sessions.toLocaleString();
-        document.getElementById("kpi-events").textContent = data.events.toLocaleString();
-        document.getElementById("kpi-purchase").textContent = data.purchase.toLocaleString();
+        document.getElementById("kpi-users").textContent =
+          data.users.toLocaleString();
+        document.getElementById("kpi-sessions").textContent =
+          data.sessions.toLocaleString();
+        document.getElementById("kpi-events").textContent =
+          data.events.toLocaleString();
+        document.getElementById("kpi-purchase").textContent =
+          data.purchase.toLocaleString();
       }
 
       // GA4 真實數據
-      updateData({ users: 6757, sessions: 8970, events: 14424, purchase: 770 });
+      updateData({ users: 6757, sessions: 8970, events: 14424, purchase: 766 });
 
       // 漏斗百分比：從 HTML 讀取數字，自動計算
-      const pageview = parseInt(document.getElementById('funnel-pageview').textContent);
-      ['viewitem', 'addcart', 'checkout', 'purchase'].forEach(id => {
-        const count = parseInt(document.getElementById('funnel-' + id).textContent);
-        const pct = (count / pageview * 100).toFixed(1);
-        document.getElementById('rate-' + id).textContent = pct + '%';
-        document.getElementById('bar-' + id).style.width = pct + '%';
+      const pageview = parseInt(
+        document.getElementById("funnel-pageview").textContent,
+      );
+      ["viewitem", "addcart", "checkout", "purchase"].forEach((id) => {
+        const count = parseInt(
+          document.getElementById("funnel-" + id).textContent,
+        );
+        const pct = ((count / pageview) * 100).toFixed(1);
+        document.getElementById("rate-" + id).textContent = pct + "%";
+        document.getElementById("bar-" + id).style.width = pct + "%";
       });
 
-      // 商品銷售佔比：從 HTML 讀取件數，自動計算
-      const qtys = Array.from(document.querySelectorAll('.p-qty'));
-      const total = qtys.reduce((sum, el) => sum + parseInt(el.textContent), 0);
-      document.getElementById('p-total').textContent = total.toLocaleString();
-      qtys.forEach((el, i) => {
-        const qty = parseInt(el.textContent);
-        const pct = (qty / total * 100).toFixed(1);
-        document.querySelectorAll('.p-pct')[i].textContent = pct + '%';
-        document.querySelectorAll('.p-bar')[i].style.width = (qty / total * 160).toFixed(0) + 'px';
+      // 商品銷售佔比：用收益計算，自動格式化顯示
+      const qtys = Array.from(document.querySelectorAll(".p-qty"));
+      const revEls = Array.from(document.querySelectorAll(".p-rev"));
+      const pBars = Array.from(document.querySelectorAll(".p-bar"));
+      const pPcts = Array.from(document.querySelectorAll(".p-pct"));
+      const totalQty = qtys.reduce(
+        (sum, el) => sum + parseInt(el.textContent),
+        0,
+      );
+      const totalRev = revEls.reduce(
+        (sum, el) => sum + parseInt(el.textContent),
+        0,
+      );
+      document.getElementById("p-total").textContent =
+        totalQty.toLocaleString();
+      // 格式化收益顯示
+      revEls.forEach((el) => {
+        el.textContent = "NT$" + parseInt(el.textContent).toLocaleString();
+      });
+      // 佔比用收益計算
+      revEls.forEach((el, i) => {
+        const rev = parseInt(el.textContent.replace(/[^0-9]/g, ""));
+        const pct = ((rev / totalRev) * 100).toFixed(1);
+        pPcts[i].textContent = pct + "%";
+        pBars[i].style.width = pct + "%";
+        pBars[i].style.maxWidth = "160px";
       });
     </script>
   </body>
