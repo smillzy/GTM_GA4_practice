@@ -1,367 +1,535 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-TW">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GA4 數據分析報告 | Pintoo 拼圖商店</title>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GA4 數據分析報告</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        color: #333;
+      }
 
-.cover {
-  background: linear-gradient(135deg, #2d89ef, #1a5fb4);
-  color: white;
-  padding: 80px 40px;
-  text-align: center;
-}
-.cover h1 { font-size: 36px; margin-bottom: 12px; }
-.cover p { font-size: 16px; opacity: 0.85; margin: 6px 0; }
-.cover .date { margin-top: 24px; font-size: 14px; opacity: 0.7; }
+      .cover {
+        background: linear-gradient(135deg, #2d89ef, #1a5fb4);
+        color: white;
+        padding: 80px 40px;
+        text-align: center;
+      }
+      .cover h1 {
+        font-size: 36px;
+        margin-bottom: 12px;
+      }
+      .cover p {
+        font-size: 16px;
+        opacity: 0.85;
+        margin: 6px 0;
+      }
+      .cover .date {
+        margin-top: 24px;
+        font-size: 14px;
+        opacity: 0.7;
+      }
 
-.container { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
 
-.section { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); padding: 32px; margin-bottom: 28px; }
-.section h2 { font-size: 20px; color: #2d89ef; border-left: 4px solid #2d89ef; padding-left: 12px; margin-bottom: 24px; }
-.section h3 { font-size: 15px; color: #555; margin: 20px 0 12px; }
+      .section {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        padding: 32px;
+        margin-bottom: 28px;
+      }
+      .section h2 {
+        font-size: 20px;
+        color: #2d89ef;
+        border-left: 4px solid #2d89ef;
+        padding-left: 12px;
+        margin-bottom: 24px;
+      }
+      .section h3 {
+        font-size: 15px;
+        color: #555;
+        margin: 20px 0 12px;
+      }
 
-/* KPI 卡片 */
-.kpi-grid { display: flex; flex-wrap: wrap; gap: 16px; }
-.kpi-card {
-  flex: 1; min-width: 160px;
-  background: #f8f9fa;
-  border-radius: 10px;
-  padding: 20px;
-  text-align: center;
-  border-top: 4px solid #2d89ef;
-}
-.kpi-card.green { border-color: #28a745; }
-.kpi-card.orange { border-color: #fd7e14; }
-.kpi-card.purple { border-color: #6f42c1; }
-.kpi-card .value { font-size: 32px; font-weight: bold; color: #2d89ef; }
-.kpi-card.green .value { color: #28a745; }
-.kpi-card.orange .value { color: #fd7e14; }
-.kpi-card.purple .value { color: #6f42c1; }
-.kpi-card .label { font-size: 13px; color: #888; margin-top: 6px; }
+      /* KPI 卡片 */
+      .kpi-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .kpi-card {
+        flex: 1;
+        min-width: 160px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        border-top: 4px solid #2d89ef;
+      }
+      .kpi-card.green {
+        border-color: #28a745;
+      }
+      .kpi-card.orange {
+        border-color: #fd7e14;
+      }
+      .kpi-card.purple {
+        border-color: #6f42c1;
+      }
+      .kpi-card .value {
+        font-size: 32px;
+        font-weight: bold;
+        color: #2d89ef;
+      }
+      .kpi-card.green .value {
+        color: #28a745;
+      }
+      .kpi-card.orange .value {
+        color: #fd7e14;
+      }
+      .kpi-card.purple .value {
+        color: #6f42c1;
+      }
+      .kpi-card .label {
+        font-size: 13px;
+        color: #888;
+        margin-top: 6px;
+      }
 
-/* 表格 */
-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-th { background: #2d89ef; color: white; padding: 10px 14px; text-align: left; }
-td { padding: 10px 14px; border-bottom: 1px solid #eee; }
-tr:hover td { background: #f8f9fa; }
-.bar-cell { display: flex; align-items: center; gap: 10px; }
-.bar { height: 10px; background: #2d89ef; border-radius: 5px; min-width: 4px; }
-.bar.green { background: #28a745; }
-.bar.orange { background: #fd7e14; }
-.bar.purple { background: #6f42c1; }
-.bar.gray { background: #adb5bd; }
+      /* 表格 */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      th {
+        background: #2d89ef;
+        color: white;
+        padding: 10px 14px;
+        text-align: left;
+      }
+      td {
+        padding: 10px 14px;
+        border-bottom: 1px solid #eee;
+      }
+      tr:hover td {
+        background: #f8f9fa;
+      }
+      .bar-cell {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .bar {
+        height: 10px;
+        background: #2d89ef;
+        border-radius: 5px;
+        min-width: 4px;
+      }
+      .bar.green {
+        background: #28a745;
+      }
+      .bar.orange {
+        background: #fd7e14;
+      }
+      .bar.purple {
+        background: #6f42c1;
+      }
+      .bar.gray {
+        background: #adb5bd;
+      }
 
-/* 漏斗 */
-.funnel { display: flex; flex-direction: column; gap: 8px; max-width: 600px; margin: 0 auto; }
-.funnel-step {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.funnel-bar-wrap { flex: 1; background: #eee; border-radius: 6px; height: 40px; position: relative; }
-.funnel-bar-fill {
-  height: 100%;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  padding-left: 14px;
-  color: white;
-  font-weight: bold;
-  font-size: 14px;
-  transition: width 0.5s;
-}
-.funnel-label { width: 130px; font-size: 13px; color: #555; text-align: right; }
-.funnel-rate { width: 60px; font-size: 12px; color: #888; }
+      /* 漏斗 */
+      .funnel {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .funnel-step {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .funnel-bar-wrap {
+        flex: 1;
+        background: #eee;
+        border-radius: 6px;
+        height: 40px;
+        position: relative;
+      }
+      .funnel-bar-fill {
+        height: 100%;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        padding-left: 14px;
+        color: white;
+        font-weight: bold;
+        font-size: 14px;
+        transition: width 0.5s;
+      }
+      .funnel-label {
+        width: 130px;
+        font-size: 13px;
+        color: #555;
+        text-align: right;
+      }
+      .funnel-rate {
+        width: 60px;
+        font-size: 12px;
+        color: #888;
+      }
 
-/* 結論 */
-.insight { background: #e8f0fe; border-left: 4px solid #2d89ef; padding: 14px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px; font-size: 14px; line-height: 1.6; }
-.insight.green { background: #e8f8ed; border-color: #28a745; }
-.insight.orange { background: #fff3e0; border-color: #fd7e14; }
+      /* 結論 */
+      .insight {
+        background: #e8f0fe;
+        border-left: 4px solid #2d89ef;
+        padding: 14px 16px;
+        border-radius: 0 8px 8px 0;
+        margin-bottom: 12px;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .insight.green {
+        background: #e8f8ed;
+        border-color: #28a745;
+      }
+      .insight.orange {
+        background: #fff3e0;
+        border-color: #fd7e14;
+      }
 
-.tag { display: inline-block; background: #e8f0fe; color: #2d89ef; font-size: 12px; padding: 3px 10px; border-radius: 20px; margin: 3px; }
+      .tag {
+        display: inline-block;
+        background: #e8f0fe;
+        color: #2d89ef;
+        font-size: 12px;
+        padding: 3px 10px;
+        border-radius: 20px;
+        margin: 3px;
+      }
 
-footer { text-align: center; color: #aaa; font-size: 13px; padding: 32px; }
-</style>
-</head>
-<body>
-
-<div class="cover">
-  <h1>GA4 數據分析報告</h1>
-  <p>Pintoo 拼圖商店 電商追蹤專案</p>
-  <p>分析期間：2025/03/01 － 2025/03/31</p>
-  <div class="date">報告製作：Phoebe ｜ 工具：GA4 + GTM + Python</div>
-</div>
-
-<div class="container">
-
-  <!-- 一、專案說明 -->
-  <div class="section">
-    <h2>一、專案說明</h2>
-    <p style="font-size:14px;line-height:1.8;color:#555;">
-      本專案建立一個模擬電商網站（Pintoo 拼圖商店），透過 <strong>Google Tag Manager（GTM）</strong> 部署 <strong>GA4 事件追蹤</strong>，
-      並搭配 <strong>UTM 參數</strong> 追蹤各行銷渠道的流量來源與轉換效果。<br><br>
-      追蹤事件涵蓋完整購物旅程：瀏覽商品 → 加入購物車 → 結帳 → 完成購買，
-      並透過 Python 模擬來自 Google、Facebook、Instagram、Email 等多渠道的使用者行為，用以產生可分析的數據。
-    </p>
-    <div style="margin-top:16px;">
-      <span class="tag">GA4</span>
-      <span class="tag">GTM</span>
-      <span class="tag">UTM 追蹤</span>
-      <span class="tag">電商事件</span>
-      <span class="tag">Python 模擬</span>
-      <span class="tag">GitHub Pages</span>
+      footer {
+        text-align: center;
+        color: #aaa;
+        font-size: 13px;
+        padding: 32px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cover">
+      <h1>GA4 數據分析報告</h1>
+      <h2>電商追蹤專案</h2>
+      <div class="date">報告製作：李孟真 ｜ 工具：GA4 + GTM + Python</div>
     </div>
-  </div>
 
-  <!-- 二、流量總覽 -->
-  <div class="section">
-    <h2>二、流量總覽</h2>
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="value" id="kpi-users">－</div>
-        <div class="label">總使用者數</div>
+    <div class="container">
+      <!-- 一、專案說明 -->
+      <div class="section">
+        <h2>一、專案說明</h2>
+        <p style="font-size: 14px; line-height: 1.8; color: #555">
+          本專案建立一個模擬電商網站（Pintoo 拼圖商店），透過
+          <strong>Google Tag Manager（GTM）</strong> 部署
+          <strong>GA4 事件追蹤</strong>， 並搭配
+          <strong>UTM 參數</strong>
+          追蹤各行銷渠道的流量來源與轉換效果。<br /><br />
+          追蹤事件涵蓋完整購物旅程：瀏覽商品 → 加入購物車 → 結帳 → 完成購買，
+          並透過 Python 模擬來自 Google、Facebook、Instagram、Email
+          等多渠道的使用者行為，用以產生可分析的數據。
+        </p>
+        <div style="margin-top: 16px">
+          <span class="tag">GA4</span>
+          <span class="tag">GTM</span>
+          <span class="tag">UTM 追蹤</span>
+          <span class="tag">電商事件</span>
+          <span class="tag">Python 模擬</span>
+          <span class="tag">GitHub Pages</span>
+        </div>
       </div>
-      <div class="kpi-card green">
-        <div class="value" id="kpi-sessions">－</div>
-        <div class="label">總工作階段</div>
-      </div>
-      <div class="kpi-card orange">
-        <div class="value" id="kpi-events">－</div>
-        <div class="label">總事件數</div>
-      </div>
-      <div class="kpi-card purple">
-        <div class="value" id="kpi-purchase">－</div>
-        <div class="label">完成購買</div>
-      </div>
-      <div class="kpi-card orange">
-        <div class="value">$356,334</div>
-        <div class="label">總收益（TWD）</div>
-      </div>
-    </div>
-  </div>
 
-  <!-- 三、流量來源分析 -->
-  <div class="section">
-    <h2>三、流量來源分析（UTM）</h2>
-    <div class="insight orange">
-      <strong>📌 說明：</strong>
-      UTM 流量歸因的設計是當真實使用者透過瀏覽器點擊帶有 UTM 參數的連結時，由 GTM 自動捕捉並送至 GA4，已透過 utm_links.html 手動測試確認運作正常。本次數據以 Measurement Protocol 模擬送出，流量來源歸類如下：
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>管道群組</th>
-          <th>工作階段</th>
-          <th>視覺化</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Unassigned（模擬流量）</td>
-          <td>8,967</td>
-          <td><div class="bar-cell"><div class="bar" style="width:200px"></div></div></td>
-        </tr>
-        <tr>
-          <td>Referral</td>
-          <td>2</td>
-          <td><div class="bar-cell"><div class="bar green" style="width:4px"></div></div></td>
-        </tr>
-        <tr>
-          <td>Direct</td>
-          <td>1</td>
-          <td><div class="bar-cell"><div class="bar gray" style="width:2px"></div></div></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- 四、購物漏斗分析 -->
-  <div class="section">
-    <h2>四、購物漏斗分析</h2>
-    <div class="funnel">
-      <div class="funnel-step">
-        <div class="funnel-label">瀏覽首頁</div>
-        <div class="funnel-bar-wrap">
-          <div class="funnel-bar-fill" style="background:#2d89ef;width:100%">
-            <span id="funnel-pageview">－</span>
+      <!-- 二、流量總覽 -->
+      <div class="section">
+        <h2>二、流量總覽</h2>
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="value" id="kpi-users">－</div>
+            <div class="label">總使用者數</div>
+          </div>
+          <div class="kpi-card green">
+            <div class="value" id="kpi-sessions">－</div>
+            <div class="label">總工作階段</div>
+          </div>
+          <div class="kpi-card orange">
+            <div class="value" id="kpi-events">－</div>
+            <div class="label">總事件數</div>
+          </div>
+          <div class="kpi-card purple">
+            <div class="value" id="kpi-purchase">－</div>
+            <div class="label">完成購買</div>
+          </div>
+          <div class="kpi-card orange">
+            <div class="value">$356,334</div>
+            <div class="label">總收益（TWD）</div>
           </div>
         </div>
-        <div class="funnel-rate">100%</div>
       </div>
-      <div class="funnel-step">
-        <div class="funnel-label">查看商品</div>
-        <div class="funnel-bar-wrap">
-          <div class="funnel-bar-fill" style="background:#28a745" id="bar-viewitem">
-            <span id="funnel-viewitem">－</span>
+
+      <!-- 三、流量來源分析 -->
+      <div class="section">
+        <h2>三、流量來源分析（UTM）</h2>
+        <div class="insight orange">
+          <strong>📌 說明：</strong>
+          UTM 流量的設計是當真實使用者透過瀏覽器點擊帶有 UTM 參數的連結時，由
+          GTM 自動捕捉並送至 GA4，已透過 utm_links.html
+          手動測試確認運作正常。本次數據以 Measurement Protocol
+          模擬送出，流量來源歸類如下：
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>管道群組</th>
+              <th>工作階段</th>
+              <th>視覺化</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Unassigned（模擬流量）</td>
+              <td>8,967</td>
+              <td>
+                <div class="bar-cell">
+                  <div class="bar" style="width: 200px"></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Referral</td>
+              <td>2</td>
+              <td>
+                <div class="bar-cell">
+                  <div class="bar green" style="width: 4px"></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Direct</td>
+              <td>1</td>
+              <td>
+                <div class="bar-cell">
+                  <div class="bar gray" style="width: 2px"></div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 四、購物漏斗分析 -->
+      <div class="section">
+        <h2>四、購物漏斗分析</h2>
+        <div class="funnel">
+          <div class="funnel-step">
+            <div class="funnel-label">瀏覽首頁</div>
+            <div class="funnel-bar-wrap">
+              <div
+                class="funnel-bar-fill"
+                style="background: #2d89ef; width: 100%"
+              >
+                <span id="funnel-pageview">6242</span>
+              </div>
+            </div>
+            <div class="funnel-rate">100%</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-label">查看商品</div>
+            <div class="funnel-bar-wrap">
+              <div
+                class="funnel-bar-fill"
+                style="background: #28a745"
+                id="bar-viewitem"
+              >
+                <span id="funnel-viewitem">4343</span>
+              </div>
+            </div>
+            <div class="funnel-rate" id="rate-viewitem">－</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-label">加入購物車</div>
+            <div class="funnel-bar-wrap">
+              <div
+                class="funnel-bar-fill"
+                style="background: #fd7e14"
+                id="bar-addcart"
+              >
+                <span id="funnel-addcart">1964</span>
+              </div>
+            </div>
+            <div class="funnel-rate" id="rate-addcart">－</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-label">開始結帳</div>
+            <div class="funnel-bar-wrap">
+              <div
+                class="funnel-bar-fill"
+                style="background: #6f42c1"
+                id="bar-checkout"
+              >
+                <span id="funnel-checkout">1084</span>
+              </div>
+            </div>
+            <div class="funnel-rate" id="rate-checkout">－</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-label">完成購買</div>
+            <div class="funnel-bar-wrap">
+              <div
+                class="funnel-bar-fill"
+                style="background: #dc3545"
+                id="bar-purchase"
+              >
+                <span id="funnel-purchase">770</span>
+              </div>
+            </div>
+            <div class="funnel-rate" id="rate-purchase">－</div>
           </div>
         </div>
-        <div class="funnel-rate" id="rate-viewitem">－</div>
       </div>
-      <div class="funnel-step">
-        <div class="funnel-label">加入購物車</div>
-        <div class="funnel-bar-wrap">
-          <div class="funnel-bar-fill" style="background:#fd7e14" id="bar-addcart">
-            <span id="funnel-addcart">－</span>
-          </div>
+
+      <!-- 五、商品分析 -->
+      <div class="section">
+        <h2>五、熱銷商品分析</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>商品名稱</th>
+              <th>完成購買（件）</th>
+              <th>預估收益</th>
+              <th>銷售佔比</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>🎨 設計插畫拼圖（NT$499）</td>
+              <td>266</td>
+              <td>NT$132,734</td>
+              <td>
+                <div class="bar-cell">
+                  <div class="bar orange" style="width: 140px"></div>
+                  34.5%
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>📘 AI 學習筆記（NT$299）</td>
+              <td>253</td>
+              <td>NT$75,647</td>
+              <td>
+                <div class="bar-cell">
+                  <div class="bar" style="width: 133px"></div>
+                  32.8%
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>🌏 世界地圖拼圖（NT$599）</td>
+              <td>247</td>
+              <td>NT$147,953</td>
+              <td>
+                <div class="bar-cell">
+                  <div class="bar green" style="width: 130px"></div>
+                  32.1%
+                </div>
+              </td>
+            </tr>
+            <tr style="font-weight: bold; background: #f8f9fa">
+              <td>合計</td>
+              <td>766</td>
+              <td>NT$356,334</td>
+              <td>100%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 六、結論與建議 -->
+      <div class="section">
+        <h2>六、結論與建議</h2>
+
+        <h3>📌 主要發現</h3>
+        <div class="insight green">
+          <strong>購物漏斗：</strong>從瀏覽首頁到查看商品的轉換率達
+          69.6%，顯示商品吸引力良好。加入購物車（31.5%）到完成購買（12.3%）之間流失率偏高，結帳流程有優化空間。
         </div>
-        <div class="funnel-rate" id="rate-addcart">－</div>
-      </div>
-      <div class="funnel-step">
-        <div class="funnel-label">開始結帳</div>
-        <div class="funnel-bar-wrap">
-          <div class="funnel-bar-fill" style="background:#6f42c1" id="bar-checkout">
-            <span id="funnel-checkout">－</span>
-          </div>
+        <div class="insight orange">
+          <strong>熱銷商品：</strong>三款商品銷售分布相當平均（各約
+          32~35%）。世界地圖拼圖單價最高（NT$599），雖件數最少，但對總收益貢獻最大（NT$147,953）。
         </div>
-        <div class="funnel-rate" id="rate-checkout">－</div>
-      </div>
-      <div class="funnel-step">
-        <div class="funnel-label">完成購買</div>
-        <div class="funnel-bar-wrap">
-          <div class="funnel-bar-fill" style="background:#dc3545" id="bar-purchase">
-            <span id="funnel-purchase">－</span>
-          </div>
+        <div class="insight">
+          <strong>電商收益：</strong>共完成 766 筆購買，總電商收益達
+          NT$356,334，平均每筆訂單金額約 NT$465。
         </div>
-        <div class="funnel-rate" id="rate-purchase">－</div>
+
+        <h3>📌 優化建議</h3>
+        <div class="insight">
+          1. <strong>優化結帳流程</strong>：add_to_cart（1,964次）到
+          purchase（770次）流失率達 60%，建議簡化結帳步驟或加入進度條提示。
+        </div>
+        <div class="insight">
+          2.
+          <strong>購物車再行銷</strong>：針對加入購物車但未完成結帳的用戶，搭配
+          Email 再行銷或限時優惠提升轉換率。
+        </div>
+        <div class="insight">
+          3.
+          <strong>高單價商品促購</strong
+          >：世界地圖拼圖收益貢獻最高，可搭配組合優惠或限時折扣進一步提升銷量。
+        </div>
+        <div class="insight">
+          4. <strong>UTM 追蹤落地</strong>：建立各渠道專屬 UTM
+          連結，分析不同行銷活動的 ROI，作為後續廣告預算分配依據。
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- 五、商品分析 -->
-  <div class="section">
-    <h2>五、熱銷商品分析</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>商品名稱</th>
-          <th>完成購買（件）</th>
-          <th>預估收益</th>
-          <th>銷售佔比</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>🎨 設計插畫拼圖（NT$499）</td>
-          <td>266</td>
-          <td>NT$132,734</td>
-          <td><div class="bar-cell"><div class="bar orange" style="width:140px"></div> 34.5%</div></td>
-        </tr>
-        <tr>
-          <td>📘 AI 學習筆記（NT$299）</td>
-          <td>253</td>
-          <td>NT$75,647</td>
-          <td><div class="bar-cell"><div class="bar" style="width:133px"></div> 32.8%</div></td>
-        </tr>
-        <tr>
-          <td>🌏 世界地圖拼圖（NT$599）</td>
-          <td>247</td>
-          <td>NT$147,953</td>
-          <td><div class="bar-cell"><div class="bar green" style="width:130px"></div> 32.1%</div></td>
-        </tr>
-        <tr style="font-weight:bold;background:#f8f9fa;">
-          <td>合計</td>
-          <td>766</td>
-          <td>NT$356,334</td>
-          <td>100%</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <footer>
+      GA4 + GTM 電商追蹤作品集 ｜ 數據來源：Google Analytics 4 ｜
+      製作工具：Python / GitHub Pages
+    </footer>
 
-  <!-- 六、結論與建議 -->
-  <div class="section">
-    <h2>六、結論與建議</h2>
+    <script>
+      function updateData(data) {
+        // KPI
+        document.getElementById("kpi-users").textContent = data.users.toLocaleString();
+        document.getElementById("kpi-sessions").textContent = data.sessions.toLocaleString();
+        document.getElementById("kpi-events").textContent = data.events.toLocaleString();
+        document.getElementById("kpi-purchase").textContent = data.purchase.toLocaleString();
+      }
 
-    <h3>📌 主要發現</h3>
-    <div class="insight green">
-      <strong>購物漏斗：</strong>從瀏覽首頁到查看商品的轉換率達 69.6%，顯示商品吸引力良好。加入購物車（31.5%）到完成購買（12.3%）之間流失率偏高，結帳流程有優化空間。
-    </div>
-    <div class="insight orange">
-      <strong>熱銷商品：</strong>三款商品銷售分布相當平均（各約 32~35%）。世界地圖拼圖單價最高（NT$599），雖件數最少，但對總收益貢獻最大（NT$147,953）。
-    </div>
-    <div class="insight">
-      <strong>電商收益：</strong>共完成 766 筆購買，總電商收益達 NT$356,334，平均每筆訂單金額約 NT$465。
-    </div>
+      // GA4 真實數據
+      updateData({ users: 6757, sessions: 8970, events: 14424, purchase: 770 });
 
-    <h3>📌 優化建議</h3>
-    <div class="insight">
-      1. <strong>優化結帳流程</strong>：add_to_cart（1,964次）到 purchase（770次）流失率達 60%，建議簡化結帳步驟或加入進度條提示。
-    </div>
-    <div class="insight">
-      2. <strong>購物車再行銷</strong>：針對加入購物車但未完成結帳的用戶，搭配 Email 再行銷或限時優惠提升轉換率。
-    </div>
-    <div class="insight">
-      3. <strong>高單價商品促購</strong>：世界地圖拼圖收益貢獻最高，可搭配組合優惠或限時折扣進一步提升銷量。
-    </div>
-    <div class="insight">
-      4. <strong>UTM 追蹤落地</strong>：建立各渠道專屬 UTM 連結，分析不同行銷活動的 ROI，作為後續廣告預算分配依據。
-    </div>
-  </div>
-
-</div>
-
-<footer>GA4 + GTM 電商追蹤作品集 ｜ 數據來源：Google Analytics 4 ｜ 製作工具：Python / GitHub Pages</footer>
-
-<script>
-// 等 GA4 數據出來後，把這裡的數字換成真實數據
-function updateData(data) {
-  // KPI
-  document.getElementById('kpi-users').textContent = data.users.toLocaleString();
-  document.getElementById('kpi-sessions').textContent = data.sessions.toLocaleString();
-  document.getElementById('kpi-events').textContent = data.events.toLocaleString();
-  document.getElementById('kpi-purchase').textContent = data.purchase.toLocaleString();
-
-  // 流量來源
-  const total = data.users;
-  const sources = [
-    { key: 'google',   val: data.src.google },
-    { key: 'facebook', val: data.src.facebook },
-    { key: 'instagram',val: data.src.instagram },
-    { key: 'email',    val: data.src.email },
-    { key: 'direct',   val: data.src.direct },
-  ];
-  sources.forEach(s => {
-    const pct = Math.round(s.val / total * 100);
-    document.getElementById('src-' + s.key).textContent = s.val.toLocaleString();
-    document.getElementById('pct-' + s.key).textContent = pct + '%';
-    document.getElementById('bar-' + s.key).style.width = (pct * 2) + 'px';
-  });
-
-  // 漏斗
-  const f = data.funnel;
-  document.getElementById('funnel-pageview').textContent = f.pageview.toLocaleString();
-  document.getElementById('funnel-viewitem').textContent = f.viewitem.toLocaleString();
-  document.getElementById('funnel-addcart').textContent = f.addcart.toLocaleString();
-  document.getElementById('funnel-checkout').textContent = f.checkout.toLocaleString();
-  document.getElementById('funnel-purchase').textContent = f.purchase.toLocaleString();
-
-  const rates = [
-    { id: 'viewitem',  val: f.viewitem / f.pageview },
-    { id: 'addcart',   val: f.addcart  / f.pageview },
-    { id: 'checkout',  val: f.checkout / f.pageview },
-    { id: 'purchase',  val: f.purchase / f.pageview },
-  ];
-  rates.forEach(r => {
-    const pct = Math.round(r.val * 100);
-    document.getElementById('rate-' + r.id).textContent = pct + '%';
-    document.getElementById('bar-' + r.id).style.width = (r.val * 100) + '%';
-  });
-}
-
-// GA4 真實數據
-updateData({
-  users: 6757,
-  sessions: 8970,
-  events: 14424,
-  purchase: 770,
-  src: { google: 0, facebook: 0, instagram: 0, email: 0, direct: 0 },
-  funnel: { pageview: 6242, viewitem: 4343, addcart: 1964, checkout: 1084, purchase: 770 }
-});
-</script>
-
-</body>
+      // 漏斗百分比：從 HTML 讀取數字，自動計算
+      const pageview = parseInt(document.getElementById('funnel-pageview').textContent);
+      ['viewitem', 'addcart', 'checkout', 'purchase'].forEach(id => {
+        const count = parseInt(document.getElementById('funnel-' + id).textContent);
+        const pct = (count / pageview * 100).toFixed(1);
+        document.getElementById('rate-' + id).textContent = pct + '%';
+        document.getElementById('bar-' + id).style.width = pct + '%';
+      });
+    </script>
+  </body>
 </html>
