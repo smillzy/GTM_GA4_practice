@@ -137,6 +137,10 @@ footer { text-align: center; color: #aaa; font-size: 13px; padding: 32px; }
         <div class="value" id="kpi-purchase">－</div>
         <div class="label">完成購買</div>
       </div>
+      <div class="kpi-card orange">
+        <div class="value">$356,334</div>
+        <div class="label">總收益（TWD）</div>
+      </div>
     </div>
   </div>
 
@@ -259,24 +263,24 @@ footer { text-align: center; color: #aaa; font-size: 13px; padding: 32px; }
       <tbody>
         <tr>
           <td>📘 AI 學習筆記（NT$299）</td>
-          <td id="p1-view">－</td>
-          <td id="p1-cart">－</td>
-          <td id="p1-buy">－</td>
-          <td id="p1-rate">－</td>
+          <td>－</td>
+          <td>－</td>
+          <td>253</td>
+          <td>－</td>
         </tr>
         <tr>
           <td>🎨 設計插畫拼圖（NT$499）</td>
-          <td id="p2-view">－</td>
-          <td id="p2-cart">－</td>
-          <td id="p2-buy">－</td>
-          <td id="p2-rate">－</td>
+          <td>－</td>
+          <td>－</td>
+          <td>266</td>
+          <td>－</td>
         </tr>
         <tr>
           <td>🌏 世界地圖拼圖（NT$599）</td>
-          <td id="p3-view">－</td>
-          <td id="p3-cart">－</td>
-          <td id="p3-buy">－</td>
-          <td id="p3-rate">－</td>
+          <td>－</td>
+          <td>－</td>
+          <td>247</td>
+          <td>－</td>
         </tr>
       </tbody>
     </table>
@@ -291,10 +295,10 @@ footer { text-align: center; color: #aaa; font-size: 13px; padding: 32px; }
       <strong>流量來源：</strong>Google CPC 貢獻最高流量（約 35%），其次為 Facebook Social（25%）。付費搜尋渠道的轉換率明顯高於社群媒體。
     </div>
     <div class="insight green">
-      <strong>購物漏斗：</strong>從瀏覽首頁到查看商品的轉換率約 70%，顯示商品吸引力良好。加入購物車到完成購買的流失率較高，建議優化結帳流程。
+      <strong>購物漏斗：</strong>從瀏覽首頁到查看商品的轉換率達 69.6%，顯示商品吸引力良好。加入購物車（31.5%）到完成購買（12.3%）的流失率較高，建議優化結帳流程以提升轉換。
     </div>
     <div class="insight orange">
-      <strong>熱銷商品：</strong>AI 學習筆記（NT$299）因價格親民，購買轉換率最高；世界地圖拼圖（NT$599）瀏覽多但購買少，可考慮加強促購。
+      <strong>熱銷商品：</strong>設計插畫拼圖以 266 件居冠，AI 學習筆記（253件）與世界地圖拼圖（247件）緊追其後，三款商品銷售分布相當平均，總電商收益達 NT$356,334。
     </div>
 
     <h3>📌 優化建議</h3>
@@ -362,14 +366,14 @@ function updateData(data) {
   });
 }
 
-// ★ 數據出來後，把下面的數字換成 GA4 真實數據 ★
+// GA4 真實數據
 updateData({
-  users: 0,
-  sessions: 0,
-  events: 0,
-  purchase: 0,
+  users: 6757,
+  sessions: 8970,
+  events: 14424,
+  purchase: 770,
   src: { google: 0, facebook: 0, instagram: 0, email: 0, direct: 0 },
-  funnel: { pageview: 1, viewitem: 0, addcart: 0, checkout: 0, purchase: 0 }
+  funnel: { pageview: 6242, viewitem: 4343, addcart: 1964, checkout: 1084, purchase: 770 }
 });
 </script>
 
